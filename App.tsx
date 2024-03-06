@@ -67,7 +67,7 @@ function App(): React.JSX.Element {
           marginTop="xxxl">
           <Image
             resizeMode="contain"
-            style={{width: responsiveScale(100), height: responsiveScale(100)}}
+            style={ {width: responsiveScale(100), height: responsiveScale(100)}}
             source={require('./shared/assets/images/wizimage1.png')}
           />
           <Text
