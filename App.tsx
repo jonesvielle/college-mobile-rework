@@ -44,7 +44,7 @@ function App(): React.JSX.Element {
       await storeIsNewDevice('no');
     } catch (e) {
       // error reading value
-      console.log('error reading value here', e);
+      console.log('error reading value herer', e);
     }
   };
   useEffect(() => {
