@@ -46,12 +46,14 @@
   "engines": {
     "node": ">=18"
   },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix"
+    ]
+  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
     }
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": "eslint . --ext .js,.ts,.tsx --fix"
   }
 }
