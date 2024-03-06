@@ -22,6 +22,8 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: ['react', 'react-native'],
-  rules: {},
+  plugins: ['react', 'react-native', 'no-console-log'],
+  rules: {
+    'no-console': 'error',
+  },
 };
