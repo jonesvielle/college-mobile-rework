@@ -52,7 +52,7 @@ function App(): React.JSX.Element {
       try {
         await checkIsNewDevice();
       } catch (error) {
-        console.log('error savirng datrrah');
+        console.log('error savrirng datrrah');
       }
     })();
   }, []);
