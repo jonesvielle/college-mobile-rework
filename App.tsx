@@ -52,7 +52,7 @@ function App(): React.JSX.Element {
       try {
         await checkIsNewDevice();
       } catch (error) {
-        console.log('error saving data');
+        console.log('error saving datra');
       }
     })();
   }, []);
