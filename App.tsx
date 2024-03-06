@@ -5,114 +5,85 @@
  * @format
  */
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
+import React, {useEffect, useState} from 'react';
+import Box from './shared/components/box';
+import Text from './shared/components/text';
+import {ThemeProvider} from '@shopify/restyle';
+import theme from './shared/theme/theme';
+import {Image, Platform, StatusBar} from 'react-native';
+import SplashScreen from 'react-native-splash-screen';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {responsiveFont, responsiveScale} from './shared/utilities/helper';
+import MainButton from './shared/components/mainButton';
+import Indicator from './shared/components/indicator';
+const viewTest = require('react-native');
 
 function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+  const [isNewDevice, setIsNewDevice] = useState<boolean>(true);
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  useEffect(() => {
+    if (Platform.OS === 'ios') return;
+    SplashScreen.hide();
+  }, []);
+  const storeIsNewDevice = async (value: string) => {
+    try {
+      await AsyncStorage.setItem('isNewDevice', value);
+      setIsNewDevice(false);
+    } catch (e) {
+      // saving error
+      console.log('error storing value', e);
+    }
   };
-
+  const checkIsNewDevice = async () => {
+    try {
+      const value = await AsyncStorage.getItem('isNewDevice');
+      if (value !== null) {
+        setIsNewDevice(false);
+        return;
+      }
+      await storeIsNewDevice('no');
+    } catch (e) {
+      // error reading value
+      console.log('error reading value', e);
+    }
+  };
+  useEffect(() => {
+    (async () => {
+      try {
+        await checkIsNewDevice();
+      } catch (error) {
+        console.log('error saving data');
+      }
+    })();
+  }, []);
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <ThemeProvider theme={theme}>
+      <StatusBar />
+      <Box flex={1}>
+        <Box
+          padding="xl"
+          alignItems="center"
+          justifyContent="center"
+          marginTop="xxxl">
+          <Image
+            resizeMode="contain"
+            style={{width: responsiveScale(100), height: responsiveScale(100)}}
+            source={require('./shared/assets/images/wizimage1.png')}
+          />
+          <Text
+            color="secondaryGrey"
+            fontFamily="DM Sans"
+            fontSize={responsiveFont(16)}
+            textAlign="center"
+            marginTop="l">
+            Watch world-class instructors share their skills and years of work
+            experience with you.
+          </Text>
+          <Indicator marginTop="xl" />
+        </Box>
+      </Box>
+    </ThemeProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;
