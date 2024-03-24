@@ -25,4 +25,5 @@ class MainActivity : ReactActivity() {
     SplashScreen.show(this);  // add this
     super.onCreate(null)
   }
+
 }

@@ -10,9 +10,13 @@ export const palette = {
   greenDark: '#0A906E',
 
   black: '#0B0B0B',
-  white: '#F0F2F3',
   red: '#FB3846',
   secondaryGrey: '#4F4F4F',
+  secondaryLightGrey: '#828282',
+  secondaryLightBackground: '#E5E4E2',
+  darkGrey: '#333333',
+  white: '#FFFFFF',
+  lightCollegeRed: '#ffeaea',
 };
 
 const theme = createTheme({
@@ -21,8 +25,15 @@ const theme = createTheme({
     cardPrimaryBackground: palette.purplePrimary,
     collegeRed: palette.red,
     secondaryGrey: palette.secondaryGrey,
+    darkGrey: palette.darkGrey,
+    secondaryLightGrey: palette.secondaryLightGrey,
+    secondaryLightBackground: palette.secondaryLightBackground,
+    white: palette.white,
+    lightCollegeRed: palette.lightCollegeRed,
   },
   spacing: {
+    none: 0,
+    xxxxs: 0.6,
     xxxs: 1,
     xxs: 3,
     xs: 6,
@@ -32,6 +43,7 @@ const theme = createTheme({
     xl: 40,
     xxl: 72,
     xxxl: 100,
+    lg: 140,
   },
   textVariants: {
     header: {

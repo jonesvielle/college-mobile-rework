@@ -5,15 +5,15 @@ import {
   spacing,
 } from '@shopify/restyle';
 import {Dimensions} from 'react-native';
-import {Theme} from '../theme/theme';
-import {RestyleProps} from './types';
+import {type Theme} from '../theme/theme';
+import {type IntegerReturnType, type RestyleProps} from './types';
 
-const {fontScale, scale, height, width} = Dimensions.get('window');
+export const {fontScale, scale, height, width} = Dimensions.get('window');
 
-export const responsiveFont = (value: number) => {
+export const responsiveFont: IntegerReturnType = (value: number) => {
   return fontScale * value;
 };
-export const responsiveScale = (value: number) => {
+export const responsiveScale: IntegerReturnType = (value: number) => {
   return scale * value;
 };
 
