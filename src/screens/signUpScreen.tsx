@@ -74,7 +74,7 @@ const SignUpScreen = () => {
         alert(payload);
       }}>
       {({values, setFieldValue, handleSubmit, errors, touched}) => (
-        <PrimaryLayout>
+        <PrimaryLayout hideBackButton>
           <Box flex={1} padding="m">
             <Box marginTop="m" flexDirection="row" alignItems="center">
               <Text

@@ -56,7 +56,7 @@ const LoginScreen = () => {
       validationSchema={loginValidationSchema}
       onSubmit={() => {}}>
       {({values, setFieldValue, handleSubmit, errors, touched}) => (
-        <PrimaryLayout>
+        <PrimaryLayout hideBackButton>
           <Box flex={1} padding="m">
             <Box marginTop="m" flexDirection="row" alignItems="center">
               <Text
@@ -125,9 +125,14 @@ const LoginScreen = () => {
               alignItems="center"
               justifyContent="space-between">
               <Text color="collegeRed">Wrong password *</Text>
-              <Text fontWeight="bold" color="collegeRed">
-                Forgot password?
-              </Text>
+              <Pressable
+                onPress={() => {
+                  navigation.navigate('forgotPasswordScreen');
+                }}>
+                <Text fontWeight="bold" color="collegeRed">
+                  Forgot password?
+                </Text>
+              </Pressable>
             </Box>
             <Box marginTop="xl">
               <MainButton
