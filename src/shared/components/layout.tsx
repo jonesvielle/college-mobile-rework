@@ -11,6 +11,7 @@ interface LayoutProps {
   showBottomButton: boolean;
   bottomButtonPressed: () => void;
   hideBackButton: boolean;
+  shouldPushButton: boolean;
 }
 
 const PrimaryLayout = ({
@@ -19,12 +20,13 @@ const PrimaryLayout = ({
   showBottomButton = false,
   hideBackButton = false,
   bottomButtonPressed,
+  shouldPushButton = false,
 }: React.PropsWithChildren<LayoutProps>) => {
   const navigation = useNavigation();
   // console.log('height: ' + -1 * Math.round(height));
   return (
     <KeyboardAvoidingView
-      behavior="height"
+      behavior={shouldPushButton ? 'padding' : 'height'}
       keyboardVerticalOffset={-100}
       style={{flex: 1}}>
       <Box

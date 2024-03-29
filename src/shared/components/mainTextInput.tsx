@@ -28,6 +28,8 @@ interface MainTextInputProps {
   errorMessage: string;
   onChangeText: ((text: string) => void) | undefined;
   isPassword: boolean;
+  maxLength: number;
+  inputRef: React.LegacyRef<TextInput> | undefined;
 }
 
 const MainTextInput = ({
@@ -42,6 +44,8 @@ const MainTextInput = ({
   errorMessage = '',
   onChangeText,
   isPassword,
+  maxLength,
+  inputRef,
 }: MainTextInputProps) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -75,6 +79,8 @@ const MainTextInput = ({
             : null
         }>
         <TextInput
+          ref={inputRef}
+          maxLength={maxLength}
           secureTextEntry={isPassword ? !showPassword : false}
           onChangeText={onChangeText}
           onFocus={onFocus}

@@ -10,6 +10,8 @@ export interface RootStackNavigationType {
   changePasswordScreen: undefined;
   TourScreen: undefined;
   checkEmailScreen: undefined;
+  resetPassword: undefined;
+  welcomeScreen: undefined;
 }
 
 export type RootStackNavigationProps =
