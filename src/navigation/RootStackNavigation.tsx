@@ -12,6 +12,8 @@ import CheckEmailScreen from '../screens/checkEmailScreen';
 import OtpScreen from '../screens/otpScreen';
 import ResetPassword from '../screens/resetPassword';
 import WelcomeScreen from '../screens/welcomeScreen';
+import BottomTabNavigation from './BottomTabNavigation';
+import SearchScreen from '../screens/searchScreen';
 
 const RootStack = createStackNavigator<RootStackNavigationType>();
 
@@ -22,7 +24,7 @@ const RootStackNavigation = () => {
         headerShown: false,
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}
-      initialRouteName="welcomeScreen">
+      initialRouteName="BottomTabNavigation">
       <RootStack.Screen name="loginScreen" component={LoginScreen} />
       <RootStack.Screen name="signUpScreen" component={SignUpScreen} />
       <RootStack.Screen name="TourScreen" component={TourScreen} />
@@ -34,6 +36,11 @@ const RootStackNavigation = () => {
       <RootStack.Screen name="otpScreen" component={OtpScreen} />
       <RootStack.Screen name="resetPassword" component={ResetPassword} />
       <RootStack.Screen name="welcomeScreen" component={WelcomeScreen} />
+      <RootStack.Screen
+        name="BottomTabNavigation"
+        component={BottomTabNavigation}
+      />
+      <RootStack.Screen name="searchScreen" component={SearchScreen} />
     </RootStack.Navigator>
   );
 };

@@ -14,6 +14,8 @@
   "dependencies": {
     "@gorhom/bottom-sheet": "^4.6.1",
     "@react-native-async-storage/async-storage": "^1.22.3",
+    "@react-navigation/bottom-tabs": "^6.5.20",
+    "@react-navigation/material-top-tabs": "^6.6.13",
     "@react-navigation/native": "^6.1.15",
     "@react-navigation/native-stack": "^6.9.24",
     "@react-navigation/stack": "^6.3.27",
@@ -23,10 +25,14 @@
     "react-native": "0.73.5",
     "react-native-animatable": "^1.4.0",
     "react-native-gesture-handler": "^2.15.0",
+    "react-native-pager-view": "^6.3.0",
+    "react-native-progress": "^5.0.1",
     "react-native-reanimated": "^3.8.0",
     "react-native-safe-area-context": "^4.9.0",
     "react-native-screens": "^3.29.0",
     "react-native-splash-screen": "^3.3.0",
+    "react-native-svg": "^15.1.0",
+    "react-native-tab-view": "^3.5.2",
     "react-native-vector-icons": "^10.0.3",
     "yup": "^1.4.0"
   },

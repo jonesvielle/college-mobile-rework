@@ -17,6 +17,7 @@ export const palette = {
   darkGrey: '#333333',
   white: '#FFFFFF',
   lightCollegeRed: '#ffeaea',
+  yellow: '#F2C94C',
 };
 
 const theme = createTheme({
@@ -30,6 +31,7 @@ const theme = createTheme({
     secondaryLightBackground: palette.secondaryLightBackground,
     white: palette.white,
     lightCollegeRed: palette.lightCollegeRed,
+    yellow: palette.yellow,
   },
   spacing: {
     none: 0,

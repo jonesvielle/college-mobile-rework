@@ -3,8 +3,14 @@ import Box from './box';
 import {KeyboardAvoidingView, Platform, Pressable} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {height, responsiveScale} from '../utilities/helper';
+import {height, responsiveFont, responsiveScale} from '../utilities/helper';
 import MainButton from './mainButton';
+import {Image} from 'react-native-animatable';
+import SearchInput from './searchInput';
+import {continuesLearning} from '../../screens/home';
+import {type CourseType} from '../types/courseTypes';
+import {type RootStackNavigationProps} from '../../navigation/types';
+import Text from './text';
 
 interface LayoutProps {
   bottomButtonText: string;
@@ -12,6 +18,10 @@ interface LayoutProps {
   bottomButtonPressed: () => void;
   hideBackButton: boolean;
   shouldPushButton: boolean;
+  headerType: 'inner' | 'landing';
+  sendSearchData: (courseData: CourseType[]) => void;
+  hasSearchBar: boolean;
+  title: string;
 }
 
 const PrimaryLayout = ({
@@ -21,8 +31,22 @@ const PrimaryLayout = ({
   hideBackButton = false,
   bottomButtonPressed,
   shouldPushButton = false,
+  headerType = 'landing',
+  sendSearchData,
+  hasSearchBar = false,
+  title = '',
 }: React.PropsWithChildren<LayoutProps>) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<RootStackNavigationProps>();
+  // const [filteredData, setFilteredData] = React.useState<CourseType[]>();
+  const handleFilterSearch = (e: string) => {
+    // console.log(e);
+    const filteredValue = continuesLearning.filter(item =>
+      item.title.toLowerCase().includes(e.toLowerCase()),
+    );
+    // setFilteredData(filteredValue);
+    // console.log(filteredValue);
+    sendSearchData(filteredValue);
+  };
   // console.log('height: ' + -1 * Math.round(height));
   return (
     <KeyboardAvoidingView
@@ -35,22 +59,83 @@ const PrimaryLayout = ({
         backgroundColor="white"
         flex={1}>
         <Box flex={1}>
-          {hideBackButton ? null : (
+          {headerType === 'landing' ? (
             <Box
               flexDirection="row"
-              marginTop={Platform.OS === 'ios' ? 'l' : 'none'}>
-              <Pressable
-                onPress={() => {
-                  navigation.goBack();
-                }}>
+              justifyContent="space-between"
+              alignItems="center"
+              marginTop={Platform.OS === 'ios' ? 'xxl' : 'l'}
+              marginHorizontal="m">
+              <Image
+                style={{
+                  width: responsiveScale(15),
+                  height: responsiveScale(15),
+                  marginLeft: responsiveScale(2),
+                }}
+                source={require('../assets/images/logo.png')}
+              />
+              <Text
+                color="darkGrey"
+                fontWeight="bold"
+                fontSize={responsiveFont(18)}>
+                {title}
+              </Text>
+              <Box flexDirection="row">
+                <Pressable
+                  onPress={() => {
+                    navigation.navigate('searchScreen');
+                  }}>
+                  <Icon
+                    color={'black'}
+                    size={responsiveScale(9)}
+                    name="search-outline"
+                    style={{marginRight: responsiveScale(10)}}
+                  />
+                </Pressable>
                 <Icon
                   color={'black'}
-                  size={responsiveScale(12)}
-                  name="chevron-back-outline"
+                  size={responsiveScale(9)}
+                  name="notifications-outline"
                 />
-              </Pressable>
+              </Box>
+            </Box>
+          ) : (
+            <Box
+              alignItems="center"
+              justifyContent="space-between"
+              flexDirection="row"
+              marginTop={Platform.OS === 'ios' ? 'xxl' : 'l'}
+              marginHorizontal="m">
+              {hideBackButton ? null : (
+                <Pressable
+                  onPress={() => {
+                    navigation.goBack();
+                  }}>
+                  <Icon
+                    color={'black'}
+                    size={responsiveScale(12)}
+                    name="chevron-back-outline"
+                  />
+                </Pressable>
+              )}
+              <Text
+                color="darkGrey"
+                fontWeight="bold"
+                fontSize={responsiveFont(18)}>
+                {title}
+              </Text>
+              {hasSearchBar ? (
+                <Box width={'90%'}>
+                  <SearchInput
+                    hasCustomFilter
+                    data={continuesLearning}
+                    customFilter={handleFilterSearch}
+                  />
+                </Box>
+              ) : null}
             </Box>
           )}
+
           {children}
         </Box>
 

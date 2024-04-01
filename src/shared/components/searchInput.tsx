@@ -3,16 +3,27 @@ import {responsiveScale} from '../utilities/helper';
 import Box from './box';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {palette} from '../theme/theme';
-import React, {type Dispatch, type SetStateAction} from 'react';
+import React, {useState, type Dispatch, type SetStateAction} from 'react';
 import {type StringVoidReturnType} from '../utilities/types';
+import {Pressable} from 'react-native';
 
 interface SearchInputProps {
   data: string[];
   setFilteredData: Dispatch<SetStateAction<string[]>>;
+  hasCustomFilter: boolean;
+  customFilter: (e: string) => void;
 }
 
-const SearchInput = ({data, setFilteredData}: SearchInputProps) => {
+const SearchInput = ({
+  data,
+  setFilteredData,
+  hasCustomFilter,
+  customFilter,
+}: SearchInputProps) => {
+  const [searchValue, setSearchValue] = useState<string | null>('');
   const handleFilteredData: StringVoidReturnType = (text: string) => {
+    // console.log(text);
+    setSearchValue(text);
     const filteredSearch = data.filter(item =>
       item.toUpperCase().includes(text.toUpperCase()),
     );
@@ -30,7 +41,15 @@ const SearchInput = ({data, setFilteredData}: SearchInputProps) => {
       alignItems="center"
       justifyContent="space-between">
       <TextInput
-        onChangeText={handleFilteredData}
+        value={searchValue}
+        onChangeText={
+          hasCustomFilter
+            ? e => {
+                setSearchValue(e);
+                customFilter(e);
+              }
+            : handleFilteredData
+        }
         style={{
           width: '90%',
           color: palette.secondaryGrey,
@@ -38,7 +57,12 @@ const SearchInput = ({data, setFilteredData}: SearchInputProps) => {
         }}
         placeholder="Search..."
       />
-      <Icon name="search" />
+      <Pressable
+        onPress={() => {
+          setSearchValue('');
+        }}>
+        <Icon size={responsiveScale(8)} name="close-outline" />
+      </Pressable>
     </Box>
   );
 };
