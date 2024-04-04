@@ -10,7 +10,7 @@ import {Image} from 'react-native-animatable';
 
 // interface AllCoursesScreenProps {}
 
-const AllCoursesScreen = () => {
+const AllFavouriteCoursesScreen = () => {
   return (
     <Box backgroundColor="white" paddingTop="xl" flex={1}>
       <FlatList
@@ -29,21 +29,19 @@ const AllCoursesScreen = () => {
                 source={require('../shared/assets/images/heartbreak.png')}
               />
               <Text color="secondaryLightGrey" marginTop="m">
-                No courses found
+                No favourites
               </Text>
             </Box>
           )
         }
-        data={continuesLearning}
         // data={[]}
+        data={continuesLearning}
         renderItem={({item}) => (
           <CoursesCrad
             wrapperStyle={{marginBottom: responsiveScale(10)}}
             rating="4.5"
             title={item.title}
             courseCode={item.courseCode}
-            progress={'0.54'}
-            showCourseProgress
           />
         )}
       />
@@ -51,4 +49,4 @@ const AllCoursesScreen = () => {
   );
 };
 
-export default AllCoursesScreen;
+export default AllFavouriteCoursesScreen;

@@ -8,6 +8,9 @@ import Text from '../shared/components/text';
 import Box from '../shared/components/box';
 import {responsiveScale} from '../shared/utilities/helper';
 import TopTabLectureNavigation from './TopTabLectureNavigation';
+import Account from '../screens/account';
+import TopTabFavouritesNavigation from './TopTabFavouritesNavigation';
+import Downloads from '../screens/downloads';
 
 const Tab = createBottomTabNavigator<BottomTabNavigationType>();
 const TabList: Array<{
@@ -26,7 +29,7 @@ const TabList: Array<{
   {
     name: 'Favourites',
     icon: 'star',
-    componentName: Home,
+    componentName: TopTabFavouritesNavigation,
     isBig: false,
   },
   {
@@ -35,16 +38,17 @@ const TabList: Array<{
     componentName: TopTabLectureNavigation,
     isBig: true,
   },
+
   {
-    name: 'Accounts',
-    icon: 'person-circle',
-    componentName: Home,
+    name: 'Downloads',
+    icon: 'download',
+    componentName: Downloads,
     isBig: false,
   },
   {
-    name: 'Downloads',
-    icon: 'download-outline',
-    componentName: Home,
+    name: 'Accounts',
+    icon: 'person-circle',
+    componentName: Account,
     isBig: false,
   },
 ];
@@ -92,11 +96,23 @@ const BottomTabNavigation = () => {
 
                       elevation: 16,
                     }}>
-                    <Icon name={item.icon} size={size} color={color} />
+                    {focused ? (
+                      <Icon name={item.icon} size={size} color={color} />
+                    ) : (
+                      <Icon
+                        name={item.icon + '-outline'}
+                        size={size}
+                        color={color}
+                      />
+                    )}
                   </Box>
                 );
               }
-              return <Icon name={item.icon} size={size} color={color} />;
+              return focused ? (
+                <Icon name={item.icon} size={size} color={color} />
+              ) : (
+                <Icon name={item.icon + '-outline'} size={size} color={color} />
+              );
             },
           }}
         />

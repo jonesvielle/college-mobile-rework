@@ -41,7 +41,7 @@ const Home = () => {
     setProgressValue(0.3);
   }, []);
   return (
-    <PrimaryLayout headerType="landing">
+    <PrimaryLayout hasSearchBar headerType="landing">
       <Box flex={1} marginHorizontal="m" marginTop="l">
         <ScrollView showsVerticalScrollIndicator={false}>
           <Text
@@ -157,7 +157,7 @@ const Home = () => {
                     <Progress.Bar
                       useNativeDriver={false}
                       animationConfig={{duration: 3000, delay: 500}}
-                      width={responsiveScale(400)}
+                      width={responsiveScale(90)}
                       color={palette.red}
                       borderWidth={0}
                       style={{
@@ -304,6 +304,7 @@ const Home = () => {
               data={continuesLearning}
               renderItem={({item}) => (
                 <CoursesCrad
+                  // wrapperStyle={{marginTop: responsiveScale(100)}}
                   rating="4.5"
                   title={item.title}
                   courseCode={item.courseCode}

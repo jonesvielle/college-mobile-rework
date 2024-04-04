@@ -81,17 +81,19 @@ const PrimaryLayout = ({
                 {title}
               </Text>
               <Box flexDirection="row">
-                <Pressable
-                  onPress={() => {
-                    navigation.navigate('searchScreen');
-                  }}>
-                  <Icon
-                    color={'black'}
-                    size={responsiveScale(9)}
-                    name="search-outline"
-                    style={{marginRight: responsiveScale(10)}}
-                  />
-                </Pressable>
+                {hasSearchBar ? (
+                  <Pressable
+                    onPress={() => {
+                      navigation.navigate('searchScreen');
+                    }}>
+                    <Icon
+                      color={'black'}
+                      size={responsiveScale(9)}
+                      name="search-outline"
+                      style={{marginRight: responsiveScale(10)}}
+                    />
+                  </Pressable>
+                ) : null}
                 <Icon
                   color={'black'}
                   size={responsiveScale(9)}

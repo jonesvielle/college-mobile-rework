@@ -7,12 +7,14 @@ import {responsiveScale} from '../shared/utilities/helper';
 import {palette} from '../shared/theme/theme';
 import Text from '../shared/components/text';
 import AllPastQuestions from '../screens/allPastQuestions';
+import AllFavouriteCoursesScreen from '../screens/allFavouriteCourses';
+import AllFavouritePastQuestions from '../screens/allFavouritePastQuestions';
 
 const Tab = createMaterialTopTabNavigator();
 
-function TopTabLectureNavigation() {
+function TopTabFavouritesNavigation() {
   return (
-    <PrimaryLayout title="All lectures">
+    <PrimaryLayout title="Favourites">
       <Tab.Navigator
         hitSlop={-4}
         screenOptions={{
@@ -32,11 +34,14 @@ function TopTabLectureNavigation() {
           elevation: 0,
           marginTop: responsiveScale(10),
         }}>
-        <Tab.Screen name="All courses" component={AllCoursesScreen} />
-        <Tab.Screen name="All past questions" component={AllPastQuestions} />
+        <Tab.Screen name="Courses" component={AllFavouriteCoursesScreen} />
+        <Tab.Screen
+          name="Past questions"
+          component={AllFavouritePastQuestions}
+        />
       </Tab.Navigator>
     </PrimaryLayout>
   );
 }
 
-export default TopTabLectureNavigation;
+export default TopTabFavouritesNavigation;

@@ -15,6 +15,7 @@ export interface RootStackNavigationType {
   welcomeScreen: undefined;
   BottomTabNavigation: undefined;
   searchScreen: undefined;
+  updateProfileScreen: undefined;
 }
 
 export interface BottomTabNavigationType {

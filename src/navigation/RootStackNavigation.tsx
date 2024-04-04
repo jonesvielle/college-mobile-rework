@@ -14,6 +14,7 @@ import ResetPassword from '../screens/resetPassword';
 import WelcomeScreen from '../screens/welcomeScreen';
 import BottomTabNavigation from './BottomTabNavigation';
 import SearchScreen from '../screens/searchScreen';
+import UpdateProfileScreen from '../screens/updateProfileScreen';
 
 const RootStack = createStackNavigator<RootStackNavigationType>();
 
@@ -41,6 +42,10 @@ const RootStackNavigation = () => {
         component={BottomTabNavigation}
       />
       <RootStack.Screen name="searchScreen" component={SearchScreen} />
+      <RootStack.Screen
+        name="updateProfileScreen"
+        component={UpdateProfileScreen}
+      />
     </RootStack.Navigator>
   );
 };

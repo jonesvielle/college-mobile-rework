@@ -8,9 +8,9 @@ import {continuesLearning} from './home';
 import CoursesCrad from '../shared/components/coursesCard';
 import {Image} from 'react-native-animatable';
 
-// interface AllCoursesScreenProps {}
+// interface AllPastQuestionsProps {}
 
-const AllCoursesScreen = () => {
+const AllFavouritePastQuestions = () => {
   return (
     <Box backgroundColor="white" paddingTop="xl" flex={1}>
       <FlatList
@@ -29,7 +29,7 @@ const AllCoursesScreen = () => {
                 source={require('../shared/assets/images/heartbreak.png')}
               />
               <Text color="secondaryLightGrey" marginTop="m">
-                No courses found
+                No favourites
               </Text>
             </Box>
           )
@@ -38,12 +38,9 @@ const AllCoursesScreen = () => {
         // data={[]}
         renderItem={({item}) => (
           <CoursesCrad
-            wrapperStyle={{marginBottom: responsiveScale(10)}}
             rating="4.5"
             title={item.title}
             courseCode={item.courseCode}
-            progress={'0.54'}
-            showCourseProgress
           />
         )}
       />
@@ -51,4 +48,4 @@ const AllCoursesScreen = () => {
   );
 };
 
-export default AllCoursesScreen;
+export default AllFavouritePastQuestions;
