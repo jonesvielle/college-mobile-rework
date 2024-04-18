@@ -6,7 +6,7 @@ import {type RootStackNavigationType} from './types';
 import TourScreen from '../screens/TourScreen';
 import LoginScreen from '../screens/LoginScreen';
 import SignUpScreen from '../screens/signUpScreen';
-import React from 'react';
+import React, {useEffect} from 'react';
 import ForgotPassword from '../screens/forgotPassword';
 import CheckEmailScreen from '../screens/checkEmailScreen';
 import OtpScreen from '../screens/otpScreen';
@@ -15,10 +15,18 @@ import WelcomeScreen from '../screens/welcomeScreen';
 import BottomTabNavigation from './BottomTabNavigation';
 import SearchScreen from '../screens/searchScreen';
 import UpdateProfileScreen from '../screens/updateProfileScreen';
+import {Platform} from 'react-native';
+import SplashScreen from 'react-native-splash-screen';
+import CourseDetails from '../screens/courseDetails';
+import CourseScreen from '../screens/courseScreen';
 
 const RootStack = createStackNavigator<RootStackNavigationType>();
 
 const RootStackNavigation = () => {
+  useEffect(() => {
+    if (Platform.OS === 'ios') return;
+    SplashScreen.hide();
+  }, []);
   return (
     <RootStack.Navigator
       screenOptions={{
@@ -46,6 +54,8 @@ const RootStackNavigation = () => {
         name="updateProfileScreen"
         component={UpdateProfileScreen}
       />
+      <RootStack.Screen name="courseDetails" component={CourseDetails} />
+      <RootStack.Screen name="courseScreen" component={CourseScreen} />
     </RootStack.Navigator>
   );
 };

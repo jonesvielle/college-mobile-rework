@@ -12,6 +12,8 @@ import {FlatList, ScrollView} from 'react-native-gesture-handler';
 import * as Progress from 'react-native-progress';
 import {palette} from '../shared/theme/theme';
 import CoursesCrad from '../shared/components/coursesCard';
+import {useNavigation} from '@react-navigation/native';
+import {type RootStackNavigationProps} from '../navigation/types';
 
 const levels = ['500L', '400L', '300L', '200L', '100L'];
 
@@ -35,6 +37,7 @@ export const continuesLearning: CourseType[] = [
 ];
 
 const Home = () => {
+  const navigation = useNavigation<RootStackNavigationProps>();
   const [progressValue, setProgressValue] = React.useState<number>();
   const progress = React.useRef(0).current;
   React.useEffect(() => {
@@ -74,101 +77,106 @@ const Home = () => {
               showsHorizontalScrollIndicator={false}
               data={continuesLearning}
               renderItem={({item}) => (
-                <Box
-                  margin="s"
-                  width={responsiveScale(100)}
-                  backgroundColor="white"
-                  borderRadius={responsiveScale(5)}
-                  padding="m"
-                  style={
-                    Platform.OS === 'android'
-                      ? {
-                          shadowColor: '#000',
-                          shadowOffset: {
-                            width: 0,
-                            height: 3,
-                          },
-                          shadowOpacity: 0.27,
-                          shadowRadius: responsiveScale(5),
+                <Pressable
+                  onPress={() => {
+                    navigation.navigate('courseScreen');
+                  }}>
+                  <Box
+                    margin="s"
+                    width={responsiveScale(100)}
+                    backgroundColor="white"
+                    borderRadius={responsiveScale(5)}
+                    padding="m"
+                    style={
+                      Platform.OS === 'android'
+                        ? {
+                            shadowColor: '#000',
+                            shadowOffset: {
+                              width: 0,
+                              height: 3,
+                            },
+                            shadowOpacity: 0.27,
+                            shadowRadius: responsiveScale(5),
 
-                          elevation: 3,
-                        }
-                      : {
-                          shadowColor: '#000',
-                          shadowOffset: {
-                            width: 0,
-                            height: 3,
-                          },
-                          shadowOpacity: 0.27,
-                          shadowRadius: responsiveScale(1),
+                            elevation: 3,
+                          }
+                        : {
+                            shadowColor: '#000',
+                            shadowOffset: {
+                              width: 0,
+                              height: 3,
+                            },
+                            shadowOpacity: 0.27,
+                            shadowRadius: responsiveScale(1),
 
-                          elevation: 1,
-                        }
-                  }>
-                  <Box flexDirection="row" alignItems="center">
-                    <Image
-                      borderRadius={responsiveScale(2)}
-                      style={{
-                        width: responsiveScale(18),
-                        height: responsiveScale(18),
-                        marginLeft: responsiveScale(2),
-                      }}
-                      source={require('../shared/assets/images/physics.webp')}
-                    />
-                    <Box flexDirection="column">
-                      <Text
-                        paddingHorizontal="m"
-                        fontWeight="bold"
-                        color="darkGrey"
-                        fontSize={responsiveFont(15)}
-                        style={{width: responsiveScale(80)}}>
-                        {item.title.length > 35
-                          ? item.title.slice(0, 35) + '...'
-                          : item.title}
-                      </Text>
-                      <Text
-                        paddingHorizontal="m"
-                        color="secondaryLightGrey"
-                        marginTop="xxs"
-                        fontSize={responsiveFont(12)}>
-                        Course code:{' '}
-                        <Text fontWeight="bold" color="darkGrey">
-                          {item.courseCode}
+                            elevation: 1,
+                          }
+                    }>
+                    <Box flexDirection="row" alignItems="center">
+                      <Image
+                        borderRadius={responsiveScale(2)}
+                        style={{
+                          width: responsiveScale(18),
+                          height: responsiveScale(18),
+                          marginLeft: responsiveScale(2),
+                        }}
+                        source={require('../shared/assets/images/physics.webp')}
+                      />
+                      <Box flexDirection="column">
+                        <Text
+                          paddingHorizontal="m"
+                          fontWeight="bold"
+                          color="darkGrey"
+                          fontSize={responsiveFont(15)}
+                          style={{width: responsiveScale(80)}}>
+                          {item.title.length > 35
+                            ? item.title.slice(0, 35) + '...'
+                            : item.title}
                         </Text>
+                        <Text
+                          paddingHorizontal="m"
+                          color="secondaryLightGrey"
+                          marginTop="xxs"
+                          fontSize={responsiveFont(12)}>
+                          Course code:{' '}
+                          <Text fontWeight="bold" color="darkGrey">
+                            {item.courseCode}
+                          </Text>
+                        </Text>
+                      </Box>
+                    </Box>
+                    <Box
+                      marginTop="m"
+                      flexDirection="row"
+                      alignItems="center"
+                      justifyContent="space-between">
+                      <Text
+                        fontWeight="bold"
+                        color="collegeRed"
+                        fontSize={responsiveFont(12)}>
+                        22 lessons
+                      </Text>
+                      <Text color="darkGrey" fontSize={responsiveFont(12)}>
+                        42 lessons
                       </Text>
                     </Box>
+                    <Box marginTop="s">
+                      <Progress.Bar
+                        useNativeDriver={false}
+                        animationConfig={{duration: 3000, delay: 500}}
+                        width={responsiveScale(90)}
+                        color={palette.red}
+                        borderWidth={0}
+                        style={{
+                          top: 0,
+                          // flex: 1,
+                          backgroundColor: palette.secondaryLightBackground,
+                        }}
+                        progress={progressValue}
+                      />
+                    </Box>
                   </Box>
-                  <Box
-                    marginTop="m"
-                    flexDirection="row"
-                    alignItems="center"
-                    justifyContent="space-between">
-                    <Text
-                      fontWeight="bold"
-                      color="collegeRed"
-                      fontSize={responsiveFont(12)}>
-                      22 lessons
-                    </Text>
-                    <Text color="darkGrey" fontSize={responsiveFont(12)}>
-                      42 lessons
-                    </Text>
-                  </Box>
-                  <Box marginTop="s">
-                    <Progress.Bar
-                      useNativeDriver={false}
-                      animationConfig={{duration: 3000, delay: 500}}
-                      width={responsiveScale(90)}
-                      color={palette.red}
-                      borderWidth={0}
-                      style={{
-                        top: 0,
-                        // flex: 1,
-                        backgroundColor: palette.secondaryLightBackground,
-                      }}
-                      progress={progressValue}
-                    />
-                  </Box>
-                </Box>
+                </Pressable>
               )}
             />
           </Box>
@@ -196,34 +204,39 @@ const Home = () => {
               showsHorizontalScrollIndicator={false}
               data={continuesLearning}
               renderItem={({item}) => (
-                <Box backgroundColor="white" width={responsiveScale(90)}>
-                  <Image
-                    borderRadius={responsiveScale(2)}
-                    style={{
-                      width: responsiveScale(80),
-                      height: responsiveScale(40),
-                      marginLeft: responsiveScale(2),
-                    }}
-                    source={require('../shared/assets/images/physics.webp')}
-                  />
-                  <Box padding="s">
-                    <Text
-                      fontWeight="bold"
-                      fontSize={responsiveFont(15)}
-                      color="darkGrey">
-                      Introduction to thermal physics
-                    </Text>
-                    <Text
-                      color="secondaryLightGrey"
-                      marginTop="xxs"
-                      fontSize={responsiveFont(12)}>
-                      Course code:{' '}
-                      <Text fontWeight="bold" color="darkGrey">
-                        {'THICO'}
+                <Pressable
+                  onPress={() => {
+                    navigation.navigate('courseDetails');
+                  }}>
+                  <Box backgroundColor="white" width={responsiveScale(90)}>
+                    <Image
+                      borderRadius={responsiveScale(2)}
+                      style={{
+                        width: responsiveScale(80),
+                        height: responsiveScale(40),
+                        marginLeft: responsiveScale(2),
+                      }}
+                      source={require('../shared/assets/images/physics.webp')}
+                    />
+                    <Box padding="s">
+                      <Text
+                        fontWeight="bold"
+                        fontSize={responsiveFont(15)}
+                        color="darkGrey">
+                        Introduction to thermal physics
                       </Text>
-                    </Text>
+                      <Text
+                        color="secondaryLightGrey"
+                        marginTop="xxs"
+                        fontSize={responsiveFont(12)}>
+                        Course code:{' '}
+                        <Text fontWeight="bold" color="darkGrey">
+                          {'THICO'}
+                        </Text>
+                      </Text>
+                    </Box>
                   </Box>
-                </Box>
+                </Pressable>
               )}
             />
           </Box>

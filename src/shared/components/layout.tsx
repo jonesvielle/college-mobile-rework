@@ -11,6 +11,7 @@ import {continuesLearning} from '../../screens/home';
 import {type CourseType} from '../types/courseTypes';
 import {type RootStackNavigationProps} from '../../navigation/types';
 import Text from './text';
+import {palette} from '../theme/theme';
 
 interface LayoutProps {
   bottomButtonText: string;
@@ -22,6 +23,12 @@ interface LayoutProps {
   sendSearchData: (courseData: CourseType[]) => void;
   hasSearchBar: boolean;
   title: string;
+  hasShareIcon: boolean;
+  secondaryButtonText: string;
+  hasSecondaryButton: boolean;
+  variant: 'inline' | 'outline';
+  transparent: boolean;
+  headerIconColor: string;
 }
 
 const PrimaryLayout = ({
@@ -35,6 +42,12 @@ const PrimaryLayout = ({
   sendSearchData,
   hasSearchBar = false,
   title = '',
+  secondaryButtonText = '',
+  hasShareIcon = false,
+  hasSecondaryButton = false,
+  variant = 'inline',
+  transparent = false,
+  headerIconColor = palette.darkGrey,
 }: React.PropsWithChildren<LayoutProps>) => {
   const navigation = useNavigation<RootStackNavigationProps>();
   // const [filteredData, setFilteredData] = React.useState<CourseType[]>();
@@ -56,7 +69,7 @@ const PrimaryLayout = ({
       <Box
         // padding="m"
         justifyContent="space-between"
-        backgroundColor="white"
+        backgroundColor={transparent ? 'transparent' : 'white'}
         flex={1}>
         <Box flex={1}>
           {headerType === 'landing' ? (
@@ -94,6 +107,7 @@ const PrimaryLayout = ({
                     />
                   </Pressable>
                 ) : null}
+
                 <Icon
                   color={'black'}
                   size={responsiveScale(9)}
@@ -103,6 +117,10 @@ const PrimaryLayout = ({
             </Box>
           ) : (
             <Box
+              zIndex={10}
+              width={transparent ? '90%' : null}
+              alignSelf={transparent ? 'center' : null}
+              position={transparent ? 'absolute' : 'relative'}
               alignItems="center"
               justifyContent="space-between"
               flexDirection="row"
@@ -113,11 +131,24 @@ const PrimaryLayout = ({
                   onPress={() => {
                     navigation.goBack();
                   }}>
-                  <Icon
-                    color={'black'}
-                    size={responsiveScale(12)}
-                    name="chevron-back-outline"
-                  />
+                  {transparent ? (
+                    <Box
+                      padding="s"
+                      borderRadius={responsiveScale(100)}
+                      style={{backgroundColor: 'rgba(0, 0, 0, 0.5)'}}>
+                      <Icon
+                        color={headerIconColor}
+                        size={responsiveScale(8)}
+                        name="chevron-back-outline"
+                      />
+                    </Box>
+                  ) : (
+                    <Icon
+                      color={headerIconColor}
+                      size={responsiveScale(8)}
+                      name="chevron-back-outline"
+                    />
+                  )}
                 </Pressable>
               )}
               <Text
@@ -135,6 +166,31 @@ const PrimaryLayout = ({
                   />
                 </Box>
               ) : null}
+              {hasShareIcon ? (
+                <Pressable
+                  onPress={() => {
+                    navigation.goBack();
+                  }}>
+                  {transparent ? (
+                    <Box
+                      padding="s"
+                      borderRadius={responsiveScale(100)}
+                      style={{backgroundColor: 'rgba(0, 0, 0, 0.5)'}}>
+                      <Icon
+                        color={headerIconColor}
+                        size={responsiveScale(8)}
+                        name="share-social-outline"
+                      />
+                    </Box>
+                  ) : (
+                    <Icon
+                      color={headerIconColor}
+                      size={responsiveScale(8)}
+                      name="share-social-outline"
+                    />
+                  )}
+                </Pressable>
+              ) : null}
             </Box>
           )}
 
@@ -142,19 +198,53 @@ const PrimaryLayout = ({
         </Box>
 
         {showBottomButton ? (
-          <Box paddingHorizontal="s" marginBottom="l">
-            <MainButton
-              padding="m"
-              textProp={{
-                color: 'white',
-                fontWeight: 'bold',
-                textAlign: 'center',
-              }}
-              borderRadius={responsiveScale(1)}
-              label={bottomButtonText}
-              backgroundColor="collegeRed"
-              onPress={bottomButtonPressed}
-            />
+          <Box flexDirection="row">
+            <Box
+              width={hasSecondaryButton ? '50%' : '100%'}
+              paddingHorizontal="s"
+              paddingTop="m"
+              paddingBottom="l"
+              backgroundColor="white">
+              <MainButton
+                borderWidth={responsiveScale(1)}
+                borderColor="collegeRed"
+                padding="m"
+                textProp={{
+                  color: 'white',
+                  fontWeight: 'bold',
+                  textAlign: 'center',
+                  fontSize: responsiveFont(12),
+                }}
+                borderRadius={responsiveScale(1)}
+                label={bottomButtonText}
+                backgroundColor="collegeRed"
+                onPress={bottomButtonPressed}
+              />
+            </Box>
+            {hasSecondaryButton ? (
+              <Box
+                width={'50%'}
+                paddingHorizontal="s"
+                paddingTop="m"
+                paddingBottom="l"
+                backgroundColor="white">
+                <MainButton
+                  borderWidth={responsiveScale(1)}
+                  borderColor="collegeRed"
+                  padding="m"
+                  textProp={{
+                    color: palette.red,
+                    fontWeight: 'bold',
+                    textAlign: 'center',
+                    fontSize: responsiveFont(12),
+                  }}
+                  borderRadius={responsiveScale(1)}
+                  label={secondaryButtonText}
+                  backgroundColor={'white'}
+                  onPress={bottomButtonPressed}
+                />
+              </Box>
+            ) : null}
           </Box>
         ) : null}
       </Box>

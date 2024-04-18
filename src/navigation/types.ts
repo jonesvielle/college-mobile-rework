@@ -16,6 +16,8 @@ export interface RootStackNavigationType {
   BottomTabNavigation: undefined;
   searchScreen: undefined;
   updateProfileScreen: undefined;
+  courseDetails: undefined;
+  courseScreen: undefined;
 }
 
 export interface BottomTabNavigationType {
