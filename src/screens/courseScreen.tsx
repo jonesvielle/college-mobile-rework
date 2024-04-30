@@ -12,10 +12,13 @@ import Text from '../shared/components/text';
 import LinearGradient from 'react-native-linear-gradient';
 import LinearGradientComponent from '../shared/components/LinearGradientComponent';
 import TopTabCourseScreenNavigation from '../navigation/TopTabCourseScreenNavigation';
+import LectureDetailsModal from '../shared/components/Modals/lecturesDetailsModal';
 
 // interface CourseScreenProps {}
 
 const CourseScreen = () => {
+  const [showLectureDetailsModal, setShowLectureDetailsModal] =
+    React.useState(false);
   return (
     <PrimaryLayout
       transparent
@@ -27,6 +30,10 @@ const CourseScreen = () => {
       </Box>
 
       <TopTabCourseScreenNavigation
+        handleSelectCourse={value => {
+          // console.log('value selected: ' + value);
+          setShowLectureDetailsModal(true);
+        }}
         navigatorStyle={{
           alignSelf: 'center',
           width: '100%',
@@ -34,6 +41,13 @@ const CourseScreen = () => {
           elevation: 0,
           padding: responsiveScale(5),
         }}
+      />
+
+      <LectureDetailsModal
+        onDismiss={() => {
+          setShowLectureDetailsModal(false);
+        }}
+        show={showLectureDetailsModal}
       />
     </PrimaryLayout>
   );

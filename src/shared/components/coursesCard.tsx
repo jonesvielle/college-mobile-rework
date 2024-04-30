@@ -1,12 +1,12 @@
 import * as React from 'react';
 import Box from './box';
 import {Image} from 'react-native-animatable';
-import {responsiveFont, responsiveScale} from '../utilities/helper';
+import {responsiveFont, responsiveScale, width} from '../utilities/helper';
 import Text from './text';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {palette} from '../theme/theme';
 import * as Progress from 'react-native-progress';
-import {type StyleProp, type ViewStyle} from 'react-native';
+import {Pressable, type StyleProp, type ViewStyle} from 'react-native';
 
 interface CoursesCradProps {
   title: string;
@@ -15,7 +15,10 @@ interface CoursesCradProps {
   showCourseProgress: boolean;
   progress: string;
   wrapperStyle: StyleProp<ViewStyle>;
+  showCourseCode: boolean;
 }
+
+const options = ['Delete', 'Add to favourites'];
 
 const CoursesCrad = ({
   title,
@@ -24,7 +27,9 @@ const CoursesCrad = ({
   showCourseProgress,
   progress = '0',
   wrapperStyle,
+  showCourseCode = false,
 }: CoursesCradProps) => {
+  const [showOptions, setShowOptions] = React.useState(false);
   return (
     <Box
       style={wrapperStyle}
@@ -32,7 +37,7 @@ const CoursesCrad = ({
       width={responsiveScale(100)}
       backgroundColor="white"
       borderRadius={responsiveScale(5)}>
-      <Box flexDirection="row">
+      <Box flexDirection="row" position="relative" zIndex={-4}>
         <Image
           borderRadius={responsiveScale(2)}
           style={{
@@ -42,7 +47,7 @@ const CoursesCrad = ({
           }}
           source={require('../assets/images/physics.webp')}
         />
-        <Box flexDirection="column">
+        <Box width={width * 0.66} flexDirection="column">
           <Text
             paddingHorizontal="m"
             fontWeight="bold"
@@ -53,16 +58,18 @@ const CoursesCrad = ({
             : item.title} */}
             {title}
           </Text>
-          <Text
-            paddingHorizontal="m"
-            color="secondaryLightGrey"
-            marginTop="xxs"
-            fontSize={responsiveFont(12)}>
-            Course code:{' '}
-            <Text fontWeight="bold" color="darkGrey">
-              {courseCode}
+          {showCourseCode && (
+            <Text
+              paddingHorizontal="m"
+              color="secondaryLightGrey"
+              marginTop="xxs"
+              fontSize={responsiveFont(12)}>
+              Course code:{' '}
+              <Text fontWeight="bold" color="darkGrey">
+                {courseCode}
+              </Text>
             </Text>
-          </Text>
+          )}
           {rating === undefined || rating.length === 0 ? null : (
             <Box paddingHorizontal="m" flexDirection="row" alignItems="center">
               <Text
@@ -115,6 +122,54 @@ const CoursesCrad = ({
             </>
           ) : null}
         </Box>
+        <Box>
+          <Pressable
+            onPress={() => {
+              setShowOptions(true);
+            }}>
+            <Icon
+              size={responsiveScale(10)}
+              name="ellipsis-vertical-outline"
+              style={{marginTop: responsiveScale(1.2)}}
+              color={palette.secondaryLightGrey}
+            />
+          </Pressable>
+        </Box>
+      </Box>
+      <Box>
+        {showOptions ? (
+          <Box
+            zIndex={20}
+            elevation={10}
+            position="absolute"
+            backgroundColor="yellow"
+            width={responsiveScale(30)}
+            marginTop="l"
+            borderWidth={responsiveScale(0.4)}
+            borderColor="secondaryLightGrey"
+            borderRadius={responsiveScale(0)}>
+            {options.map((value, index) => (
+              <>
+                <Pressable
+                  key={index}
+                  onPress={() => {
+                    setShowOptions(false);
+                  }}>
+                  <Text paddingHorizontal={'s'} color="secondaryLightGrey">
+                    {value}
+                  </Text>
+                </Pressable>
+                {index === options.length - 1 ? null : (
+                  <Box
+                    borderWidth={responsiveScale(0.1)}
+                    marginVertical="xxs"
+                    borderColor="secondaryLightGrey"
+                  />
+                )}
+              </>
+            ))}
+          </Box>
+        ) : null}
       </Box>
     </Box>
   );

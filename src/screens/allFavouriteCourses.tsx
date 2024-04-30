@@ -38,6 +38,7 @@ const AllFavouriteCoursesScreen = () => {
         data={continuesLearning}
         renderItem={({item}) => (
           <CoursesCrad
+            showCourseCode
             wrapperStyle={{marginBottom: responsiveScale(10)}}
             rating="4.5"
             title={item.title}

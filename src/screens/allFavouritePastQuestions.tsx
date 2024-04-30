@@ -38,6 +38,7 @@ const AllFavouritePastQuestions = () => {
         // data={[]}
         renderItem={({item}) => (
           <CoursesCrad
+            showCourseCode
             rating="4.5"
             title={item.title}
             courseCode={item.courseCode}

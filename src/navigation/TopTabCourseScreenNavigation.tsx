@@ -7,15 +7,19 @@ import AllPastQuestions from '../screens/allPastQuestions';
 import {palette} from '../shared/theme/theme';
 import {type StyleProp, type ViewStyle} from 'react-native';
 import CoursesScreenLecturesComponent from '../shared/components/coursesScreenLecturesComponent';
+import CoursesScreenNoteComponent from '../shared/components/coursesScreenNoteComponent';
+import CourseScreenQA from '../shared/components/courseScreenQa';
 
 interface TopTabCourseScreenNavigationType {
   navigatorStyle: StyleProp<ViewStyle>;
+  handleSelectCourse: (value: string) => void;
 }
 
 const Tab = createMaterialTopTabNavigator();
 
 const TopTabCourseScreenNavigation = ({
   navigatorStyle,
+  handleSelectCourse,
 }: TopTabCourseScreenNavigationType) => {
   return (
     <Tab.Navigator
@@ -35,9 +39,13 @@ const TopTabCourseScreenNavigation = ({
         },
       }}
       style={navigatorStyle}>
-      <Tab.Screen name="Lectures" component={CoursesScreenLecturesComponent} />
-      <Tab.Screen name="Notes" component={AllPastQuestions} />
-      <Tab.Screen name="Q&A" component={AllPastQuestions} />
+      <Tab.Screen
+        name="Lectures"
+        initialParams={{handleSelectCourse}}
+        component={CoursesScreenLecturesComponent}
+      />
+      <Tab.Screen name="Notes" component={CoursesScreenNoteComponent} />
+      <Tab.Screen name="Q&A" component={CourseScreenQA} />
     </Tab.Navigator>
   );
 };
